@@ -10,7 +10,6 @@ unchanged in the testbed's control path. This repository contains the simulators
 controllers, the prompts and search records, the testbed logs, and scripts that recompute the
 numbers reported in the paper.
 
-
 ## Reproducing the numbers
 
 ```
