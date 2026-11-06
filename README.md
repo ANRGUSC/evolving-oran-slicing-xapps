@@ -10,11 +10,6 @@ unchanged in the testbed's control path. This repository contains the simulators
 controllers, the prompts and search records, the testbed logs, and scripts that recompute the
 numbers reported in the paper.
 
-## Requirements
-
-Python 3.10 or newer. The reproduction scripts need only the standard library.
-`matplotlib` is needed only to redraw Fig. 7, and retraining the PPO comparator needs `torch`,
-`stable-baselines3` and `gymnasium` (see `requirements.txt`).
 
 ## Reproducing the numbers
 
