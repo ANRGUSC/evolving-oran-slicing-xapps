@@ -28,11 +28,11 @@ also run any one of them from inside its folder with `python reproduce.py`.
 
 | Folder | Paper | What it recomputes |
 |---|---|---|
-| `two_slice` | Sec. V-C, V-E | evolved controller 0.9398 vs the 0.9300 static allocation; the 144 zero-shot programs (best 0.9054, none above 0.9300) and the void rates; the evolution runs; 13 of 20 confident-prompt programs; the release-timing predictions on the 75-step CQI fixture |
-| `editability` | Sec. V-G | the one-line calibration edit: SLA misses 2.4% to 79.9% under a 10% efficiency error, 2.2% after the edit, best-effort -6.3 Mbps |
-| `hardware` | Sec. V-D, V-F, Table I | the POWDER panel: best-effort 158.2 to 228.6 Mbps, +44.5%; the five PPO seeds, 0.9534 +/- 0.0208 |
-| `four_slice` | Sec. VI, Tables II and III, Fig. 6 | the five starting programs and the reference policies; the sealed prompt against the call journals; Table III, selection and held-out, for all 70 selected programs; the Fig. 6 curves |
-| `source_repair` | Sec. VI-E, Fig. 7 | the one-constant repair: fitness 0.3226 to 0.7255 on all 16 traces |
+| `two_slice` | Sec. V-C, V-E | Evolved controller versus static allocation; zero-shot program performance and void rates; evolution runs; selected confident-prompt programs; release-timing predictions on the CQI fixture |
+| `editability` | Sec. V-G | Effect of the calibration edit on SLA misses and best-effort throughput under a channel-efficiency error |
+| `hardware` | Sec. V-D, V-F, Table I | POWDER hardware results, including best-effort throughput comparisons and PPO performance across training seeds |
+| `four_slice` | Sec. VI, Tables II and III, Fig. 6 | Starting programs and reference policies; verification of the sealed prompt against API call journals; selection and held-out results for all selected programs; evolution fitness curves |
+| `source_repair` | Sec. VI-E, Fig. 7 | Fitness before and after the constant repair across all evaluation traces |
 
 ## Repository Structure and Contents
 
