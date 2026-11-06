@@ -1,0 +1,15 @@
+{"seed": 0, "gen": 0, "best": 0.8729, "mean": 0.7985, "null_ratio": 0.238, "spurious_abandon": 0, "good_share": 34.7, "null_share": 8.2, "detector": "absolute-threshold", "calls": 16}
+{"seed": 0, "gen": 1, "best": 0.9391, "mean": 0.7568, "null_ratio": 0.234, "spurious_abandon": 5, "good_share": 35.1, "null_share": 8.2, "detector": "absolute-threshold+relative/avg+debounced", "calls": 20}
+{"seed": 0, "gen": 2, "best": 0.9398, "mean": 0.8418, "null_ratio": 0.205, "spurious_abandon": 0, "good_share": 35.8, "null_share": 7.4, "detector": "relative/avg+debounced", "calls": 24}
+{"seed": 0, "gen": 3, "best": 0.9398, "mean": 0.8786, "null_ratio": 0.205, "spurious_abandon": 0, "good_share": 35.8, "null_share": 7.4, "detector": "relative/avg+debounced", "calls": 28}
+{"seed": 0, "gen": 4, "best": 0.9398, "mean": 0.848, "null_ratio": 0.205, "spurious_abandon": 0, "good_share": 35.8, "null_share": 7.4, "detector": "relative/avg+debounced", "calls": 32}
+{"seed": 1, "gen": 0, "best": 0.8729, "mean": 0.7985, "null_ratio": 0.238, "spurious_abandon": 0, "good_share": 34.7, "null_share": 8.2, "detector": "absolute-threshold", "calls": 32}
+{"seed": 1, "gen": 1, "best": 0.8729, "mean": 0.7237, "null_ratio": 0.238, "spurious_abandon": 0, "good_share": 34.7, "null_share": 8.2, "detector": "absolute-threshold", "calls": 36}
+{"seed": 1, "gen": 2, "best": 0.8729, "mean": 0.7804, "null_ratio": 0.238, "spurious_abandon": 0, "good_share": 34.7, "null_share": 8.2, "detector": "absolute-threshold", "calls": 40}
+{"seed": 1, "gen": 3, "best": 0.8729, "mean": 0.781, "null_ratio": 0.238, "spurious_abandon": 0, "good_share": 34.7, "null_share": 8.2, "detector": "absolute-threshold", "calls": 44}
+{"seed": 1, "gen": 4, "best": 0.8729, "mean": 0.7747, "null_ratio": 0.238, "spurious_abandon": 0, "good_share": 34.7, "null_share": 8.2, "detector": "absolute-threshold", "calls": 48}
+{"seed": 2, "gen": 0, "best": 0.8729, "mean": 0.7985, "null_ratio": 0.238, "spurious_abandon": 0, "good_share": 34.7, "null_share": 8.2, "detector": "absolute-threshold", "calls": 48}
+{"seed": 2, "gen": 1, "best": 0.8729, "mean": 0.7205, "null_ratio": 0.238, "spurious_abandon": 0, "good_share": 34.7, "null_share": 8.2, "detector": "absolute-threshold", "calls": 52}
+{"seed": 2, "gen": 2, "best": 0.8729, "mean": 0.7914, "null_ratio": 0.238, "spurious_abandon": 0, "good_share": 34.7, "null_share": 8.2, "detector": "absolute-threshold", "calls": 56}
+{"seed": 2, "gen": 3, "best": 0.8729, "mean": 0.7604, "null_ratio": 0.238, "spurious_abandon": 0, "good_share": 34.7, "null_share": 8.2, "detector": "absolute-threshold", "calls": 60}
+{"seed": 2, "gen": 4, "best": 0.8729, "mean": 0.7679, "null_ratio": 0.238, "spurious_abandon": 0, "good_share": 34.7, "null_share": 8.2, "detector": "absolute-threshold", "calls": 64}

@@ -1,0 +1,24 @@
+# ================= SYSTEM =================
+You are designing a PRB-allocation controller for a shared radio pool with 2 network slices: slice 0 is a PRIORITY (emergency) slice with an SLA target of 80 Mbps that it MUST meet; slices 1..1 are BEST-EFFORT (saturated) slices whose throughput we want as high as possible.
+
+Write a pure Python function EXACTLY named `controller` with signature:
+    def controller(history, state, sla, predictors):
+It returns ONE integer: the PRB share (percent, in [sla.priority.min_share, sla.priority.max_share]) to give the PRIORITY slice. The harness splits the remaining pool EQUALLY among the best-effort slices, so you only choose the priority share.
+
+Objects:
+  history.slices : list of N per-slice rolling histories (index 0 = priority).
+    history.slices[k].last() -> most recent sample or None; sample fields: .cqi (channel quality 1..15), .prb_share (its last effective share), .dl_bytes (bytes this tick; Mbps = dl_bytes*8/1e6). history.slices[k].latest_mbps() helps.
+  state : persistent dict-like scratch (state.get(key,default), state.set(key,val)).
+  sla   : sla.priority.target_mbps, sla.priority.min_share, sla.priority.max_share, sla.pool_max (the shared pool size), sla.best_effort (the BE SLAs), sla.n.
+  predictors : ignore (may be empty).
+
+Higher channel (CQI) => more Mbps per PRB, so under a good channel the priority slice needs FEWER PRBs to meet its SLA, leaving more for best-effort. The objective rewards priority attainment (1 if the target is met, else 0) minus violations, plus total best-effort throughput, minus churn (changing the share every tick). SCORING — maximize the per-tick average of:  score = attain - 0.5*viol + 0.6*(best_effort_Mbps/CEIL) - 0.02*churn,  where attain = 1 if priority_Mbps >= min(offered_demand, target) - 0.5 else 0 (offered_demand is known to the scorer, not to the controller), viol = 1 - attain, churn = 1 if the priority share changed from the previous tick. IMPORTANT: the channel is NON-STATIONARY. For a sustained fraction of every episode the priority slice enters a DEEP NULL where its reported CQI falls to a floor of about 5.0-5.5 and its SLA target CANNOT be met at ANY share (even 90% delivers far below it). Your controller observes CQI each tick. Design the controller to MAXIMISE the average score.
+
+Return ONLY a fenced ```python code block with the function (helpers/constants ok). NO imports, no I/O. 
+
+
+# ---- HARDWARE TELEMETRY NOTES ----
+Hardware telemetry notes: (i) reported CQI has a floor — in a deep null it reads approximately 5.0–5.5, while delivered throughput per share drops near zero and the 80 Mbps target cannot be met at any share; (ii) in a good channel CQI saturates near 15; (iii) delivered throughput is capped by current demand — low delivery during low demand does NOT indicate a bad channel.
+
+# ================= USER =================
+Design the `controller` function for the 2-slice system described above to maximise the average score. Handle empty history robustly. Return ONLY the fenced ```python code block.

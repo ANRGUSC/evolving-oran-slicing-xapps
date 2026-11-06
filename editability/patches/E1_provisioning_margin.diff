@@ -1,0 +1,11 @@
+--- two_slice/controllers/evolved_claude.py
++++ two_slice/controllers/evolved_claude.py  (edited)
+@@ -61,7 +61,7 @@
+     mbps_per_prb = max(0.08, mbps_per_prb)
+     
+     # Calculate PRB share needed
+-    prb_needed = target_mbps / mbps_per_prb
++    prb_needed = target_mbps / (mbps_per_prb * 0.9)  # provisioning margin (efficiency overestimation)
+     share_needed = int((prb_needed / pool_size) * 100)
+     share_needed = max(sla.priority.min_share, min(sla.priority.max_share, share_needed))
+     

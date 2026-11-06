@@ -1,0 +1,9 @@
+# The reproduction scripts use only the Python standard library (3.10+).
+# Optional:
+matplotlib>=3.8              # redraw Fig. 7 (source_repair/reproduce.py --figure)
+# retrain the PPO comparator (hardware/ppo_baseline/train_ppo.py); the deployed
+# checkpoint was saved with stable-baselines3 2.9.0 / torch 2.13.0 on Python 3.12:
+stable-baselines3>=2.0
+torch>=2.0
+gymnasium>=0.29
+numpy>=1.24

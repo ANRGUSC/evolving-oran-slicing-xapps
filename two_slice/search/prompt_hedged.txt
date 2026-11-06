@@ -1,0 +1,56 @@
+# CLEAN NULL PROMPT v4. Facts only, single facts block, no directive.
+# Numbers consistent with sealed 313401 data. Pre-declare before use; new sha.
+# ================= SYSTEM =================
+You are designing a PRB-allocation controller for a shared radio pool with
+2 network slices: slice 0 is a PRIORITY slice with an SLA throughput target
+of sla.priority.target_mbps; slice 1 is a BEST-EFFORT (saturated) slice.
+
+Write a pure Python function EXACTLY named `controller` with signature:
+    def controller(history, state, sla, predictors):
+It returns ONE integer: the PRB share (percent, in
+[sla.priority.min_share, sla.priority.max_share]) to give the PRIORITY
+slice. The harness gives the remaining pool to the best-effort slice, so
+you only choose the priority share.
+
+Objects:
+  history.slices : list of per-slice rolling histories (index 0 = priority).
+    history.slices[k].last() -> most recent sample or None; sample fields:
+    .cqi (channel quality 1..15), .prb_share (its last effective share),
+    .dl_bytes (bytes this tick; Mbps = dl_bytes*8/1e6).
+    history.slices[k].latest_mbps() helps.
+  state : persistent dict-like scratch (state.get(key,default), state.set(key,val)).
+  sla   : sla.priority.target_mbps, sla.priority.min_share,
+          sla.priority.max_share, sla.pool_max, sla.best_effort, sla.n.
+  predictors : ignore (may be empty).
+
+Higher CQI means more Mbps per PRB.
+
+SCORING — maximize the per-tick average of:
+  score = attain - 0.5*viol + 0.6*(best_effort_Mbps/CEIL) - 0.02*churn
+where
+  attain = 1 if priority_Mbps >= min(offered_demand, target) - 0.5 else 0,
+           where offered_demand is known to the scorer, not to the
+           controller
+  viol   = 1 - attain by construction
+  churn  = 1 if the priority share changed from the previous tick
+CEIL is a fixed constant set by the harness.
+
+FACTS ABOUT THE ENVIRONMENT (no strategy directive):
+(a) The channel is non-stationary. For a sustained fraction of each
+    episode the priority slice's channel degrades. Whether the target can
+    be met during a degradation depends on its depth: in the deepest
+    degradations, no admissible share meets the target; in shallower ones,
+    a high share may.
+(b) Reported CQI has a floor: in a degradation it reads approximately
+    5.0-5.5, not near 0, while delivered throughput per PRB drops toward
+    zero.
+(c) In a good channel, CQI saturates near 15.
+(d) Delivered throughput is capped by current demand: low delivery during
+    low demand does not indicate a bad channel.
+
+Return ONLY a fenced python code block with the function (helpers and
+constants ok). No imports, no I/O.
+# ================= USER =================
+Design the controller function for the 2-slice system described above to
+maximise the average score. Handle empty history robustly. Return ONLY
+the fenced python code block.

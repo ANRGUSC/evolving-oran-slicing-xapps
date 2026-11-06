@@ -1,0 +1,73 @@
+{
+  "total_s": 360,
+  "sla_target_mbps": 80,
+  "seed": 0,
+  "unit": true,
+  "notes": "80 MHz calibration scenario: 80 Mbps guaranteed target, alternating 24/96 Mbps offered demand, and a sustained channel null.",
+  "segments": [
+    {
+      "t0": 0,
+      "dur": 30,
+      "s1_rate_mbps": 24,
+      "ru1ue1_atten": 10,
+      "act": "A_good_demand"
+    },
+    {
+      "t0": 30,
+      "dur": 30,
+      "s1_rate_mbps": 96,
+      "ru1ue1_atten": 10,
+      "act": "A_good_demand"
+    },
+    {
+      "t0": 60,
+      "dur": 30,
+      "s1_rate_mbps": 24,
+      "ru1ue1_atten": 10,
+      "act": "A_good_demand"
+    },
+    {
+      "t0": 90,
+      "dur": 30,
+      "s1_rate_mbps": 96,
+      "ru1ue1_atten": 10,
+      "act": "A_good_demand"
+    },
+    {
+      "t0": 120,
+      "dur": 30,
+      "s1_rate_mbps": 24,
+      "ru1ue1_atten": 10,
+      "act": "A_good_demand"
+    },
+    {
+      "t0": 150,
+      "dur": 120,
+      "s1_rate_mbps": 96,
+      "ru1ue1_atten": 90,
+      "act": "B_channel_null"
+    },
+    {
+      "t0": 270,
+      "dur": 30,
+      "s1_rate_mbps": 96,
+      "ru1ue1_atten": 10,
+      "act": "C_transitions"
+    },
+    {
+      "t0": 300,
+      "dur": 30,
+      "s1_rate_mbps": 24,
+      "ru1ue1_atten": 10,
+      "act": "C_transitions"
+    },
+    {
+      "t0": 330,
+      "dur": 30,
+      "s1_rate_mbps": 96,
+      "ru1ue1_atten": 10,
+      "act": "C_transitions"
+    }
+  ],
+  "surface_mhz": 80
+}

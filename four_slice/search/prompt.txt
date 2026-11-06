@@ -1,0 +1,26 @@
+SYSTEM
+You are designing a PRB-allocation controller for a shared radio pool with four GUARANTEED network slices (G1, G2, G3, G4) and one BEST-EFFORT (saturated) slice. Each guaranteed slice k has a fixed weight w_k and a per-slice throughput target T_k (Mbps): (w, T) = (1.00, 44), (0.90, 46), (0.80, 48), (0.70, 50) for G1, G2, G3, G4 respectively.
+
+Write a pure Python function EXACTLY named `controller` with signature:
+    def controller(history, state, sla, predictors):
+It returns a LIST of 4 numbers (s1, s2, s3, s4): the PRB shares to give the four guaranteed slices. The harness clamps negative entries to 0 and, if the four shares sum to more than 70, scales them down to sum 70; the best-effort slice receives the rest of the pool (the pool is 100, so the best-effort slice always receives at least 30). You choose the shares for the four guaranteed slices.
+
+Objects:
+  history.slices : list of 4 per-slice rolling histories (index 0 = G1 … index 3 = G4).
+    history.slices[k].last() -> most recent sample or None; sample fields: .cqi (slice k's channel quality, 5..15), .prb_share (its last effective share), .dl_bytes (its bytes this tick; Mbps = dl_bytes*8/1e6). history.slices[k].latest_mbps() returns its last delivered Mbps.
+  state : persistent dict-like scratch (state.get(key,default), state.set(key,val)).
+  sla   : sla.slices[k].weight (w_k), sla.slices[k].target_mbps (T_k), sla.pool_max (=100), sla.guaranteed_cap (=70, the maximum the four guaranteed shares may sum to), sla.n (=4), sla.best_effort (the best-effort SLA).
+  predictors : ignore (may be empty).
+
+A guaranteed slice's delivered throughput on a tick is min(its demand, rate_k * share_k), where rate_k is its Mbps per share and its demand stays at or above its target. SCORING — maximize the per-tick average of:
+    score = sum_k [ w_k * attain_k - 0.5 * w_k * (1 - attain_k) ] + 0.6 * (best_effort_Mbps / CEIL) - 0.02 * churn
+where the sum is over the four guaranteed slices, attain_k = 1 if slice k's delivered throughput >= T_k - 0.5 else 0, best_effort_Mbps is the best-effort slice's delivered throughput, CEIL = 239, and churn = the number of the (up to five) shares that changed from the previous tick. Your controller observes each guaranteed slice's CQI each tick. Design the controller to MAXIMISE the average score.
+
+Return ONLY a fenced ```python code block with the function (helpers/constants ok). NO imports, no I/O.
+
+
+# ---- TELEMETRY NOTES (facts; no strategy directive) ----
+Notes: (i) the four guaranteed channels vary independently over time; (ii) there are sustained states in which the pool cannot afford all four targets at once, so in those states some guaranteed targets go unmet; (iii) in the deepest degradations a slice's target cannot be met at any share; (iv) reported CQI has a floor — in a deep null a slice's CQI reads approximately 5.0, its delivered throughput per share drops near zero, and its target cannot be met at any share, while in a good channel CQI saturates near 15 and each share delivers more Mbps; (v) delivered throughput is capped by current demand, and each guaranteed slice's demand stays at or above its target.
+
+USER
+Design the `controller` function for the four-guaranteed-slice system described above to maximise the average score. Handle empty history robustly. Return ONLY the fenced ```python code block.

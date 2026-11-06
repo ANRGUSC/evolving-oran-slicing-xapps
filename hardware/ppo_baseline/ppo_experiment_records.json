@@ -1,0 +1,69 @@
+{
+  "experiment": "PPO learned baseline (two-slice)",
+  "algorithm": "PPO (Stable-Baselines3), MLP policy",
+  "env_steps_per_seed": 1000000,
+  "seeds": [
+    42,
+    7,
+    123,
+    2024,
+    5
+  ],
+  "observation": "o(t)={q_i(t), r_i(t-1), s_i(t-1)} per slice (Eq. obs)",
+  "action": "integer priority PRB share in [min_share,max_share] (Eq. action)",
+  "reward": "composite two-slice score (Eq. objective): attain -0.5*viol +0.6*(BE/220) -0.02*churn",
+  "fitness_metric": "worst-env = min over the three CQI floors (4.5/5.1/5.8)",
+  "per_seed_scores": [
+    {
+      "seed": 42,
+      "worstenv": 0.9601,
+      "null_share": 5.0,
+      "good_share": 37.2,
+      "clears_bar": true,
+      "learns_abandon": true
+    },
+    {
+      "seed": 7,
+      "worstenv": 0.9683,
+      "null_share": 5.0,
+      "good_share": 40.4,
+      "clears_bar": true,
+      "learns_abandon": true
+    },
+    {
+      "seed": 123,
+      "worstenv": 0.9592,
+      "null_share": 5.0,
+      "good_share": 33.8,
+      "clears_bar": true,
+      "learns_abandon": true
+    },
+    {
+      "seed": 2024,
+      "worstenv": 0.9124,
+      "null_share": 5.0,
+      "good_share": 53.9,
+      "clears_bar": false,
+      "learns_abandon": true
+    },
+    {
+      "seed": 5,
+      "worstenv": 0.967,
+      "null_share": 5.0,
+      "good_share": 39.5,
+      "clears_bar": true,
+      "learns_abandon": true
+    }
+  ],
+  "deployed_checkpoint": "ppo_policy.zip",
+  "deployed_checkpoint_sha256": "210fa22839b55bb1db8b588811e181a0ffdcb0fb41bb456391475a5e12628c44",
+  "deployed_seed": 42,
+  "sweep_best_seed": 7,
+  "static_35_65_score": 0.93,
+  "deployed_per_floor_scores": {
+    "4.5": 0.9601,
+    "5.1": 0.9601,
+    "5.8": 0.9601
+  },
+  "learning_rate": 0.0003
+}

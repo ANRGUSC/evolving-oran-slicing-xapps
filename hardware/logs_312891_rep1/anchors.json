@@ -1,0 +1,12 @@
+{
+  "series": [
+    {
+      "label": "pre_rep1",
+      "val": 84.0,
+      "covers": [
+        1
+      ]
+    }
+  ],
+  "note": "Session 312891_run2, repetition 1. Table I shares and throughput use full-run arithmetic means, including startup."
+}
